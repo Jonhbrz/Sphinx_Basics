@@ -1,12 +1,22 @@
-def divide_nums(num1, num2):
-    """This method will be used to divide num1 by num2
-
-        :param int num1: The first number
-        :param int num2: The second number
-
-        :returns: The answer
-
-        :rtype: int
+def divide_nums(*args):
     """
-    answer = num1 / num2
-    return answer
+    Divide el primer número por los siguientes, en orden.
+
+    :param args: Cualquier número de argumentos numéricos.
+    :returns: Resultado de dividir en secuencia
+    :rtype: float
+
+    Ejemplo:
+        >>> divide_nums(100, 2, 5)
+        10.0
+        >>> divide_nums(50, 2)
+        25.0
+    """
+    if not args:
+        return None
+    result = args[0]
+    for num in args[1:]:
+        if num == 0:
+            raise ValueError("No se puede dividir por cero")
+        result /= num
+    return result

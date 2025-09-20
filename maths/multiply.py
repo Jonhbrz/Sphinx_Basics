@@ -1,12 +1,18 @@
-def multiply_nums(num1, num2):
-    """This method will be used to multiply two numbers
-
-        :param int num1: The first number
-        :param int num2: The second number
-
-        :returns: The product of two numbers
-
-        :rtype: int
+def multiply_nums(*args):
     """
-    answer = num1 * num2
-    return answer
+    Multiplica todos los números proporcionados.
+
+    :param args: Cualquier número de argumentos numéricos.
+    :returns: Producto de todos los números
+    :rtype: int o float
+
+    Ejemplo:
+        >>> multiply_nums(2, 3, 4)
+        24
+        >>> multiply_nums(1, 5, 2)
+        10
+    """
+    result = 1
+    for num in args:
+        result *= num
+    return result
