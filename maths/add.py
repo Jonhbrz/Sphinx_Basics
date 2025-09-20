@@ -1,15 +1,16 @@
+# maths/add.py
 def add_nums(*args):
     """
-    Suma todos los números proporcionados.
+    Suma cualquier cantidad de números.
 
-    :param args: Cualquier número de argumentos numéricos.
+    :param int args: Números a sumar
     :returns: La suma de todos los números
-    :rtype: int o float
+    :rtype: int
 
-    Ejemplo:
-        >>> add_nums(2, 3, 5)
-        10
-        >>> add_nums(1, 2, 3, 4)
-        10
+    Ejemplos:
+    >>> add_nums(2, 3, 5)
+    10
+    >>> add_nums(1, 2, 3, 4)
+    10
     """
     return sum(args)

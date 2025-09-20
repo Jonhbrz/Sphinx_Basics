@@ -1,3 +1,4 @@
+# maths/divide.py
 def divide_nums(*args):
     """
     Divide el primer número por los siguientes, en orden.

@@ -1,3 +1,4 @@
+# maths/subtract.py
 def subtract_nums(*args):
     """
     Resta todos los números de izquierda a derecha.

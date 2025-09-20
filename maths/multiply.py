@@ -1,3 +1,4 @@
+# maths/multiply.py
 def multiply_nums(*args):
     """
     Multiplica todos los números proporcionados.
