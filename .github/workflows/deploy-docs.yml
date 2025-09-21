@@ -1,0 +1,40 @@
+name: Deploy Sphinx Docs   # Nombre visible en la pestaña "Actions"
+
+on:                       # 1️⃣ Cuándo se ejecuta
+  push:
+    branches:
+      - main              # Cada vez que hagas push en main
+
+jobs:                     # 2️⃣ Define trabajos
+  build:
+    runs-on: ubuntu-latest  # Usa una VM con Ubuntu
+
+    steps:                # 3️⃣ Pasos del trabajo
+      - name: Checkout code
+        uses: actions/checkout@v3
+        # Baja tu repo en la VM
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+        # Instala Python en la VM
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install sphinx furo
+        # Instala Sphinx y el tema
+
+      - name: Build documentation
+        run: |
+          cd docs
+          python -m sphinx -b html source build/html
+        # Genera el HTML
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build/html
+        # Publica el HTML en gh-pages
