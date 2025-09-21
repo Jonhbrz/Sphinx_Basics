@@ -1,16 +1,7 @@
 # maths/add.py
 def add_nums(*args):
     """
-    Suma cualquier cantidad de números.
-
-    :param int args: Números a sumar
-    :returns: La suma de todos los números
-    :rtype: int
-
-    Ejemplos:
-    >>> add_nums(2, 3, 5)
-    10
-    >>> add_nums(1, 2, 3, 4)
-    10
+    Esta función suma un número indefinido de argumentos.
+    PRUEBA: añadimos esta línea para GitHub Actions.
     """
     return sum(args)
