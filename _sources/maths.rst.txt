@@ -18,5 +18,3 @@ Funciones de suma, resta, multiplicación y división con ``*args``.
 .. automodule:: maths.divide
     :members:
     :undoc-members:
-
-Esta es una prueba para comprobar GitHub Actions
