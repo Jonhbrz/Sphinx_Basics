@@ -12,57 +12,66 @@ El repositorio original con funciones matemáticas se encuentra en:
 
 Para clonarlo en tu ordenador:
 
-```powershell
+powershell
 git clone https://github.com/Raxy45/sphinx_basics.git
 cd sphinx_basics
 
+---
 
 ## 2. Configuración de Sphinx
 
 Instalar Sphinx y el tema furo:
 
-```powershell
+powershell
 pip install sphinx furo
 
+---
 
 ## 3. Inicializar la documentación:
 
-```powershell
+powershell
 sphinx-quickstart docs
 
 Esto crea la carpeta docs/ con los archivos iniciales.
+
+---
 
 ## 4. Editar docs/conf.py para:
 
 Cambiar el tema a furo:
 
-```python
+python
 html_theme = 'furo'
 Ajustar el sys.path para que encuentre la librería:
 
-```python
+python
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
-3. Generar la documentación
+
+---
+
+## 5. Generar la documentación
 Generar los archivos .rst de la librería y compilar la documentación:
 
-```powershell
+powershell
 sphinx-apidoc -o docs/ maths/
 cd docs
 python -m sphinx -b html source build/html
 El resultado se guarda en docs/build/html.
 
+---
 
-## 5. Probar la documentación localmente
+## 6. Probar la documentación localmente
 
 Abrir el archivo generado:
 
-```powershell
+powershell
 start docs\build\html\index.html
 
+---
 
-## 6. Configurar GitHub Pages
+## 7. Configurar GitHub Pages
 Subir el proyecto a GitHub con los commits.
 
 Ir a Settings > Pages en el repositorio.
@@ -71,8 +80,9 @@ Seleccionar la rama gh-pages.
 
 Guardar los cambios.
 
+---
 
-## 7. Configurar GitHub Actions
+## 8. Configurar GitHub Actions
 Crear el archivo .github/workflows/docs.yml con el siguiente contenido:
 
 yaml
@@ -113,8 +123,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/build/html
 
+---
 
-## 8. Permisos de GitHub Actions
+## 9. Permisos de GitHub Actions
 Ir a:
 
 Settings > Actions > General > Workflow permissions
@@ -123,21 +134,16 @@ Seleccionar Read and write permissions.
 
 Habilitar Allow GitHub Actions to create and approve pull requests.
 
+---
 
-## 9. Probar el despliegue automático
+## 10. Probar el despliegue automático
 Hacer un cambio en cualquier archivo (por ejemplo, un docstring).
 
 Hacer commit y push:
 
-```powershell
+powershell
 git add .
 git commit -m "Prueba de WorkFlow GitHub ACtions"
 git push origin main
 
 Ir a la pestaña Actions en GitHub y verificar que el flujo se ejecute correctamente.
-
-La documentación se publicará en:
-
-
-## 10. php-template
-https://jonhbrz.github.io/Sphinx_Basics/
