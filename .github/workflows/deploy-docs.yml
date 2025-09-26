@@ -22,6 +22,7 @@ jobs:
           pip install sphinx-rtd-theme
           pip install furo
           pip install sphinx-autodoc-typehints
+          pip install myst-parser
 
       - name: Build docs
         run: |
