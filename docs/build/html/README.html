@@ -250,136 +250,119 @@
 <p>El repositorio original con funciones matemáticas se encuentra en:</p>
 <p><a class="reference external" href="https://github.com/Raxy45/sphinx_basics/tree/main/maths">https://github.com/Raxy45/sphinx_basics/tree/main/maths</a></p>
 <p>Para clonarlo en tu ordenador:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">://</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">Raxy45</span><span class="p">/</span><span class="n">sphinx_basics</span><span class="p">.</span><span class="n">git</span>
-<span class="nb">cd </span><span class="n">sphinx_basics</span>
+<p>powershell
+git clone https://github.com/Raxy45/sphinx_basics.git
+cd sphinx_basics</p>
+</section>
+<hr class="docutils" />
+<section id="configuracion-de-sphinx">
+<h2>2. Configuración de Sphinx<a class="headerlink" href="#configuracion-de-sphinx" title="Link to this heading">¶</a></h2>
+<p>Instalar Sphinx y el tema furo:</p>
+<p>powershell
+pip install sphinx furo</p>
+</section>
+<hr class="docutils" />
+<section id="inicializar-la-documentacion">
+<h2>3. Inicializar la documentación:<a class="headerlink" href="#inicializar-la-documentacion" title="Link to this heading">¶</a></h2>
+<p>powershell
+sphinx-quickstart docs</p>
+<p>Esto crea la carpeta docs/ con los archivos iniciales.</p>
+</section>
+<hr class="docutils" />
+<section id="editar-docs-conf-py-para">
+<h2>4. Editar docs/conf.py para:<a class="headerlink" href="#editar-docs-conf-py-para" title="Link to this heading">¶</a></h2>
+<p>Cambiar el tema a furo:</p>
+<p>python
+html_theme = ‘furo’
+Ajustar el sys.path para que encuentre la librería:</p>
+<p>python
+import os
+import sys
+sys.path.insert(0, os.path.abspath(‘..’))</p>
+</section>
+<hr class="docutils" />
+<section id="generar-la-documentacion">
+<h2>5. Generar la documentación<a class="headerlink" href="#generar-la-documentacion" title="Link to this heading">¶</a></h2>
+<p>Generar los archivos .rst de la librería y compilar la documentación:</p>
+<p>powershell
+sphinx-apidoc -o docs/ maths/
+cd docs
+python -m sphinx -b html source build/html
+El resultado se guarda en docs/build/html.</p>
+</section>
+<hr class="docutils" />
+<section id="probar-la-documentacion-localmente">
+<h2>6. Probar la documentación localmente<a class="headerlink" href="#probar-la-documentacion-localmente" title="Link to this heading">¶</a></h2>
+<p>Abrir el archivo generado:</p>
+<p>powershell
+start docs\build\html\index.html</p>
+</section>
+<hr class="docutils" />
+<section id="configurar-github-pages">
+<h2>7. Configurar GitHub Pages<a class="headerlink" href="#configurar-github-pages" title="Link to this heading">¶</a></h2>
+<p>Subir el proyecto a GitHub con los commits.</p>
+<p>Ir a Settings &gt; Pages en el repositorio.</p>
+<p>Seleccionar la rama gh-pages.</p>
+<p>Guardar los cambios.</p>
+</section>
+<hr class="docutils" />
+<section id="configurar-github-actions">
+<h2>8. Configurar GitHub Actions<a class="headerlink" href="#configurar-github-actions" title="Link to this heading">¶</a></h2>
+<p>Crear el archivo .github/workflows/docs.yml con el siguiente contenido:</p>
+<p>yaml</p>
+<p>name: Deploy Sphinx Docs</p>
+<p>on:
+push:
+branches:
+- main</p>
+<p>jobs:
+build:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout&#64;v3</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  - name: Set up Python
+    uses: actions/setup-python@v4
+    with:
+      python-version: &#39;3.11&#39;
 
+  - name: Install dependencies
+    run: |
+      pip install sphinx
+      pip install sphinx-rtd-theme
+      pip install furo
+      pip install sphinx-autodoc-typehints
 
-<span class="c">## 2. Configuración de Sphinx</span>
+  - name: Build docs
+    run: |
+      cd docs
+      sphinx-build -b html source build/html
 
-<span class="n">Instalar</span> <span class="n">Sphinx</span> <span class="n">y</span> <span class="n">el</span> <span class="n">tema</span> <span class="n">furo</span><span class="p">:</span>
-
-<span class="p">```</span><span class="n">powershell</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx</span> <span class="n">furo</span>
-
-
-<span class="c">## 3. Inicializar la documentación:</span>
-
-<span class="p">```</span><span class="n">powershell</span>
-<span class="n">sphinx-quickstart</span> <span class="n">docs</span>
-
-<span class="n">Esto</span> <span class="n">crea</span> <span class="n">la</span> <span class="n">carpeta</span> <span class="n">docs</span><span class="p">/</span> <span class="n">con</span> <span class="n">los</span> <span class="n">archivos</span> <span class="n">iniciales</span><span class="p">.</span>
-
-<span class="c">## 4. Editar docs/conf.py para:</span>
-
-<span class="n">Cambiar</span> <span class="n">el</span> <span class="n">tema</span> <span class="n">a</span> <span class="n">furo</span><span class="p">:</span>
-
-<span class="p">```</span><span class="n">python</span>
-<span class="n">html_theme</span> <span class="p">=</span> <span class="s1">&#39;furo&#39;</span>
-<span class="n">Ajustar</span> <span class="n">el</span> <span class="n">sys</span><span class="p">.</span><span class="n">path</span> <span class="n">para</span> <span class="n">que</span> <span class="n">encuentre</span> <span class="n">la</span> <span class="n">librería</span><span class="p">:</span>
-
-<span class="p">```</span><span class="n">python</span>
-<span class="n">import</span> <span class="n">os</span>
-<span class="n">import</span> <span class="n">sys</span>
-<span class="n">sys</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">0</span><span class="p">,</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
-<span class="n">3</span><span class="p">.</span> <span class="n">Generar</span> <span class="n">la</span> <span class="n">documentación</span>
-<span class="n">Generar</span> <span class="n">los</span> <span class="n">archivos</span> <span class="p">.</span><span class="n">rst</span> <span class="n">de</span> <span class="n">la</span> <span class="n">librería</span> <span class="n">y</span> <span class="n">compilar</span> <span class="n">la</span> <span class="n">documentación</span><span class="p">:</span>
-
-<span class="p">```</span><span class="n">powershell</span>
-<span class="n">sphinx-apidoc</span> <span class="n">-o</span> <span class="n">docs</span><span class="p">/</span> <span class="n">maths</span><span class="p">/</span>
-<span class="nb">cd </span><span class="n">docs</span>
-<span class="n">python</span> <span class="n">-m</span> <span class="n">sphinx</span> <span class="n">-b</span> <span class="n">html</span> <span class="n">source</span> <span class="n">build</span><span class="p">/</span><span class="n">html</span>
-<span class="n">El</span> <span class="n">resultado</span> <span class="n">se</span> <span class="n">guarda</span> <span class="n">en</span> <span class="n">docs</span><span class="p">/</span><span class="n">build</span><span class="p">/</span><span class="n">html</span><span class="p">.</span>
-
-
-<span class="c">## 5. Probar la documentación localmente</span>
-
-<span class="n">Abrir</span> <span class="n">el</span> <span class="n">archivo</span> <span class="n">generado</span><span class="p">:</span>
-
-<span class="p">```</span><span class="n">powershell</span>
-<span class="nb">start </span><span class="n">docs</span><span class="p">\</span><span class="n">build</span><span class="p">\</span><span class="n">html</span><span class="p">\</span><span class="n">index</span><span class="p">.</span><span class="n">html</span>
-
-
-<span class="c">## 6. Configurar GitHub Pages</span>
-<span class="n">Subir</span> <span class="n">el</span> <span class="n">proyecto</span> <span class="n">a</span> <span class="n">GitHub</span> <span class="n">con</span> <span class="n">los</span> <span class="n">commits</span><span class="p">.</span>
-
-<span class="n">Ir</span> <span class="n">a</span> <span class="n">Settings</span> <span class="p">&gt;</span> <span class="n">Pages</span> <span class="n">en</span> <span class="n">el</span> <span class="n">repositorio</span><span class="p">.</span>
-
-<span class="n">Seleccionar</span> <span class="n">la</span> <span class="n">rama</span> <span class="n">gh-pages</span><span class="p">.</span>
-
-<span class="n">Guardar</span> <span class="n">los</span> <span class="n">cambios</span><span class="p">.</span>
-
-
-<span class="c">## 7. Configurar GitHub Actions</span>
-<span class="n">Crear</span> <span class="n">el</span> <span class="n">archivo</span> <span class="p">.</span><span class="n">github</span><span class="p">/</span><span class="n">workflows</span><span class="p">/</span><span class="n">docs</span><span class="p">.</span><span class="n">yml</span> <span class="n">con</span> <span class="n">el</span> <span class="n">siguiente</span> <span class="n">contenido</span><span class="p">:</span>
-
-<span class="n">yaml</span>
-
-<span class="n">name</span><span class="p">:</span> <span class="n">Deploy</span> <span class="n">Sphinx</span> <span class="n">Docs</span>
-
-<span class="n">on</span><span class="p">:</span>
-  <span class="n">push</span><span class="p">:</span>
-    <span class="n">branches</span><span class="p">:</span>
-      <span class="p">-</span> <span class="n">main</span>
-
-<span class="n">jobs</span><span class="p">:</span>
-  <span class="n">build</span><span class="p">:</span>
-    <span class="n">runs-on</span><span class="p">:</span> <span class="n">ubuntu-latest</span>
-    <span class="n">steps</span><span class="p">:</span>
-      <span class="p">-</span> <span class="n">uses</span><span class="p">:</span> <span class="n">actions</span><span class="p">/</span><span class="n">checkout</span><span class="nv">@v3</span>
-
-      <span class="p">-</span> <span class="n">name</span><span class="p">:</span> <span class="nb">Set </span><span class="n">up</span> <span class="n">Python</span>
-        <span class="n">uses</span><span class="p">:</span> <span class="n">actions</span><span class="p">/</span><span class="n">setup-python</span><span class="nv">@v4</span>
-        <span class="n">with</span><span class="p">:</span>
-          <span class="n">python-version</span><span class="p">:</span> <span class="s1">&#39;3.11&#39;</span>
-
-      <span class="p">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Install</span> <span class="n">dependencies</span>
-        <span class="n">run</span><span class="p">:</span> <span class="p">|</span>
-          <span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx</span>
-          <span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx-rtd-theme</span>
-          <span class="n">pip</span> <span class="n">install</span> <span class="n">furo</span>
-          <span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx-autodoc-typehints</span>
-
-      <span class="p">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Build</span> <span class="n">docs</span>
-        <span class="n">run</span><span class="p">:</span> <span class="p">|</span>
-          <span class="nb">cd </span><span class="n">docs</span>
-          <span class="n">sphinx-build</span> <span class="n">-b</span> <span class="n">html</span> <span class="n">source</span> <span class="n">build</span><span class="p">/</span><span class="n">html</span>
-
-      <span class="p">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Deploy</span> <span class="n">to</span> <span class="n">GitHub</span> <span class="n">Pages</span>
-        <span class="n">uses</span><span class="p">:</span> <span class="n">peaceiris</span><span class="p">/</span><span class="n">actions-gh-pages</span><span class="nv">@v4</span>
-        <span class="n">with</span><span class="p">:</span>
-          <span class="n">github_token</span><span class="p">:</span> <span class="p">${{</span> <span class="n">secrets</span><span class="p">.</span><span class="n">GITHUB_TOKEN</span> <span class="p">}}</span>
-          <span class="n">publish_dir</span><span class="p">:</span> <span class="p">./</span><span class="n">docs</span><span class="p">/</span><span class="n">build</span><span class="p">/</span><span class="n">html</span>
-
-
-<span class="c">## 8. Permisos de GitHub Actions</span>
-<span class="n">Ir</span> <span class="n">a</span><span class="p">:</span>
-
-<span class="n">Settings</span> <span class="p">&gt;</span> <span class="n">Actions</span> <span class="p">&gt;</span> <span class="n">General</span> <span class="p">&gt;</span> <span class="n">Workflow</span> <span class="n">permissions</span>
-
-<span class="n">Seleccionar</span> <span class="n">Read</span> <span class="n">and</span> <span class="nb">write </span><span class="n">permissions</span><span class="p">.</span>
-
-<span class="n">Habilitar</span> <span class="n">Allow</span> <span class="n">GitHub</span> <span class="n">Actions</span> <span class="n">to</span> <span class="n">create</span> <span class="n">and</span> <span class="n">approve</span> <span class="n">pull</span> <span class="n">requests</span><span class="p">.</span>
-
-
-<span class="c">## 9. Probar el despliegue automático</span>
-<span class="n">Hacer</span> <span class="n">un</span> <span class="n">cambio</span> <span class="n">en</span> <span class="n">cualquier</span> <span class="n">archivo</span> <span class="p">(</span><span class="n">por</span> <span class="n">ejemplo</span><span class="p">,</span> <span class="n">un</span> <span class="n">docstring</span><span class="p">).</span>
-
-<span class="n">Hacer</span> <span class="n">commit</span> <span class="n">y</span> <span class="n">push</span><span class="p">:</span>
-
-<span class="p">```</span><span class="n">powershell</span>
-<span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="n">-m</span> <span class="s2">&quot;Prueba de WorkFlow GitHub ACtions&quot;</span>
-<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">main</span>
-
-<span class="n">Ir</span> <span class="n">a</span> <span class="n">la</span> <span class="n">pestaña</span> <span class="n">Actions</span> <span class="n">en</span> <span class="n">GitHub</span> <span class="n">y</span> <span class="n">verificar</span> <span class="n">que</span> <span class="n">el</span> <span class="n">flujo</span> <span class="n">se</span> <span class="n">ejecute</span> <span class="n">correctamente</span><span class="p">.</span>
-
-<span class="n">La</span> <span class="n">documentación</span> <span class="n">se</span> <span class="n">publicará</span> <span class="n">en</span><span class="p">:</span>
-
-
-<span class="c">## 10. php-template</span>
-<span class="n">https</span><span class="p">://</span><span class="n">jonhbrz</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">/</span><span class="n">Sphinx_Basics</span><span class="p">/</span>
+  - name: Deploy to GitHub Pages
+    uses: peaceiris/actions-gh-pages@v4
+    with:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+      publish_dir: ./docs/build/html
 </pre></div>
 </div>
+</section>
+<hr class="docutils" />
+<section id="permisos-de-github-actions">
+<h2>9. Permisos de GitHub Actions<a class="headerlink" href="#permisos-de-github-actions" title="Link to this heading">¶</a></h2>
+<p>Ir a:</p>
+<p>Settings &gt; Actions &gt; General &gt; Workflow permissions</p>
+<p>Seleccionar Read and write permissions.</p>
+<p>Habilitar Allow GitHub Actions to create and approve pull requests.</p>
+</section>
+<hr class="docutils" />
+<section id="probar-el-despliegue-automatico">
+<h2>10. Probar el despliegue automático<a class="headerlink" href="#probar-el-despliegue-automatico" title="Link to this heading">¶</a></h2>
+<p>Hacer un cambio en cualquier archivo (por ejemplo, un docstring).</p>
+<p>Hacer commit y push:</p>
+<p>powershell
+git add .
+git commit -m “Prueba de WorkFlow GitHub ACtions”
+git push origin main</p>
+<p>Ir a la pestaña Actions en GitHub y verificar que el flujo se ejecute correctamente.</p>
 </section>
 </section>
 
@@ -440,6 +423,15 @@
             <ul>
 <li><a class="reference internal" href="#">Documentación del Proyecto Sphinx_Basics</a><ul>
 <li><a class="reference internal" href="#clonar-el-repositorio-base">1. Clonar el repositorio base</a></li>
+<li><a class="reference internal" href="#configuracion-de-sphinx">2. Configuración de Sphinx</a></li>
+<li><a class="reference internal" href="#inicializar-la-documentacion">3. Inicializar la documentación:</a></li>
+<li><a class="reference internal" href="#editar-docs-conf-py-para">4. Editar docs/conf.py para:</a></li>
+<li><a class="reference internal" href="#generar-la-documentacion">5. Generar la documentación</a></li>
+<li><a class="reference internal" href="#probar-la-documentacion-localmente">6. Probar la documentación localmente</a></li>
+<li><a class="reference internal" href="#configurar-github-pages">7. Configurar GitHub Pages</a></li>
+<li><a class="reference internal" href="#configurar-github-actions">8. Configurar GitHub Actions</a></li>
+<li><a class="reference internal" href="#permisos-de-github-actions">9. Permisos de GitHub Actions</a></li>
+<li><a class="reference internal" href="#probar-el-despliegue-automatico">10. Probar el despliegue automático</a></li>
 </ul>
 </li>
 </ul>
