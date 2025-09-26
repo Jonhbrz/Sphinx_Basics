@@ -13,6 +13,7 @@ documentation for details.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contenidos:
+   :caption: Contenido:
 
+   README
    maths
