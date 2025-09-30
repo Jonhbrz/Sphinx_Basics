@@ -8,8 +8,8 @@ def add_nums(*args):
     :rtype: int
 
     Ejemplos:
-    >>> add_nums(2, 3, 5)
-    10
+    >>> add_nums(2, 4, 6)
+    12
     >>> add_nums(1, 2, 3, 4)
     10
     """
